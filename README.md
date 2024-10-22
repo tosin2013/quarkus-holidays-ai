@@ -55,14 +55,26 @@ If you want to learn more about building native executables, please consult <htt
 
 ## Related Guides
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
+- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not 
+compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
 - LangChain4j ([guide](https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html)): Provides the basic integration with LangChain4j
 - LangChain4j OpenAI ([guide](https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html)): Provides the basic integration with LangChain4j
 
-## Provided Code
+## Using this project as a demo or tutorial
 
-### REST
+### Getting Started
 
-Easily start your REST Web Services
+Although this project can be built and deployed, the following documentation will take you through a step-by-step 
+process to recreate it as a demo or use it as a tutorial to build your own.  So, dig in and have fun.
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+[Recreating the project as a demo or a tutorial](./docs/01-getting-started.md)
+
+
+## Credits
+
+Much/most of this was taken and repurposed from these wonderful source materials:
+
+- [Quarkus Tutorial](https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/index.html)
+- [Reactive Systems In Java](https://github.com/cescoffier/reactive-systems-in-java)
+- [Quarkus LangChain4j Workshop](https://github.com/cescoffier/quarkus-langchain4j-workshop)
+
