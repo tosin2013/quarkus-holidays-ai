@@ -5,6 +5,7 @@ First let's create a new project using Quarkus and LangChain4j.
 Tools used to create this project:
 
 - Java 21
+- Quarkus CLI
 - IntelliJ EAP
 - Postman
 - Minikube
@@ -44,7 +45,49 @@ Open application.properties file from src/main/resources and add the following t
 quarkus.langchain4j.openai.api-key=${OPENAI_API_KEY}
 ````
 
+### Compile and run the Quarkus application the first time
+
+Throughout this project, we will be typically running using the dev UI.
+
+We can get this started by running the following in our IDE or other terminal:
+
+````Bash
+quarkus dev
+````
+
+This located at http://localhost:8080/q/dev-ui if using a browser.
+
+This should look something like the following in a browser:
+
+![01-dev-ui](../images/01-dev-ui.png)
+
+### Postman Collection
+
+Even though we will eventually add a UI to the project and create a chatbot, we will want to test our API calls and to do 
+so, we will go ahead and create a Postman collection for those API calls. 
+
+![02-postman-collection](../images/02-postman-collection.png)
+
+
+> [!NOTE]
+> You may have a personal preference to use the curl command.  Nothing is stopping you.  We just prefer a way to repeat the 
+> external testing and save it off in Postman.
+
 ### Create the AI service
 
 Create an interface for the AI service.
+
+````Java
+package com.redhat.developers;
+
+import io.quarkiverse.langchain4j.RegisterAiService;
+
+@RegisterAiService
+public interface Assistant {
+    String chat(String message);
+}
+````
+
+Most of the code we will be adding should continue to work with Quarkus running in dev mode.  If not, hit ctrl+c from your
+terminal and restart $ quarkus dev when you are ready.
 
