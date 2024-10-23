@@ -67,12 +67,15 @@ compatible with the quarkus-resteasy extension, or any of the extensions that de
 Although this project can be built and deployed, the following documentation will take you through a step-by-step 
 process to recreate it as a demo or use it as a tutorial to build your own.  So, dig in and have fun.
 
-[Recreating the project as a demo or a tutorial](./docs/01-getting-started.md)
+- [01 Getting Started](./docs/01-getting-started.md)
+- [02 Working with Memory](./docs/02-working-with-memory.md)
+- [03 Working with Agents and Tools](./docs/03-working-with-agents-and-tools.md)
+
 
 
 ## Credits
 
-Much/most of this was taken and repurposed from these wonderful source materials:
+Much/most of this was taken and repurposed from these wonderful source/tutorial materials:
 
 - [Quarkus Tutorial](https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/index.html)
 - [Reactive Systems In Java](https://github.com/cescoffier/reactive-systems-in-java)

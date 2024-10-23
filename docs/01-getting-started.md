@@ -78,7 +78,7 @@ so, we will go ahead and create a Postman collection for those API calls.
 Create an interface for the AI service.
 
 ````Java
-package com.redhat.developers;
+package com.devcorner.developers;
 
 import io.quarkiverse.langchain4j.RegisterAiService;
 
@@ -88,6 +88,43 @@ public interface Assistant {
 }
 ````
 
-Most of the code we will be adding should continue to work with Quarkus running in dev mode.  If not, hit ctrl+c from your
-terminal and restart $ quarkus dev when you are ready.
+> [!NOTE]
+> Most of the code we will be adding should continue to work with Quarkus running in dev mode.  If not, hit ctrl+c from your
+> terminal and restart $ quarkus dev when you are ready.
+
+### Creating the prompt-base resource
+
+Let's create the implementation for the resource we want to send the prompts to.  We are really just connecting to the OpenAI
+service at this point.
+
+````Java
+package com.devcorner.developers;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
+@Path("/halloween")
+public class HalloweenQuestionResource {
+
+    @Inject
+    Assistant assistant;
+
+    @GET
+    @Path("/costume")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String whatShouldMyHalloweenCostumeBe() {
+        return assistant.chat("What should my halloween costume be?");
+    }
+}
+````
+We should now be able to create a new test in Postman using the URL http://localhost:8080/halloween/costume and see what happens.
+
+Because the AI API is non-deterministic, you will not get the exact same response each time.  We will describe how to deal with 
+this later in this material.  But, for now, it should look something like the following:
+
+![03-halloween-costume](../images/03-halloween-costume.png)
+
 
