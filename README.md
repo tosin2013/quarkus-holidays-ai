@@ -70,6 +70,7 @@ process to recreate it as a demo or use it as a tutorial to build your own.  So,
 - [01 Getting Started](./docs/01-getting-started.md)
 - [02 Working with Memory](./docs/02-working-with-memory.md)
 - [03 Working with Agents and Tools](./docs/03-working-with-agents-and-tools.md)
+- [04 Working with RAG](./docs/04-working-with-rag.md)
 
 
 
