@@ -127,4 +127,94 @@ this later in this material.  But, for now, it should look something like the fo
 
 ![03-halloween-costume](../images/03-halloween-costume.png)
 
+## Adding K8s Jib Extension
+
+Let's use the Kubernetes extension to create a Kubernetes deployment file and use the Quarkus Jib Extension to create and push the container 
+image to our registry.
+
+In our case, we're assuming most folks will be using Docker and for our example, we are using minikube, but you could also
+use Kind or a single node OpenShift.
+
+````Bash
+quarkus ext add quarkus-kubernetes quarkus-container-image-jib
+````
+### Add the configuration properties
+
+Add the following to **application.properties**.
+
+> [!NOTE]
+> If using Docker, you may need to perform the following
+> docker logout
+> docker login
+> Perform the web login
+> It should look something like:
+> ![docker-login](../images/07-halloween-docker-login.png)
+> You may have to perform the following:
+> In the $USER/.docker/config.json replace : "credsStore": "desktop" => "credStore":"desktop"
+> This may require a docker logout and docker login again
+
+> [!NOTE]
+> When using Minikube, there is no external load balancer service
+> The work around is either manually assign an external IP to the service
+> in the service's yaml configuration or
+> change the service-type to NodePort
+> or
+> with minikube, open another terminal and run $ minikube tunnel
+
+````Java
+quarkus.container-image.group=patterncatalyst
+quarkus.container-image.name=quarkus-halloween-ai
+quarkus.container-image.tag=1.0-SNAPSHOT
+quarkus.kubernetes.service-type=load-balancer
+````
+
+### Authenticate and push the image to the registry
+
+````Bash
+docker login <default or quay.io here>
+````
+
+Now, create the artifact, build the container and push it to the registry using jib.
+
+````Bash
+quarkus image build jib --no-tests -D"quarkus.container-image.push=true"
+````
+
+Your image should now be in the registry:
+
+![docker-hub](../images/08-docker-hub.png)
+
+### Deploy to Kubernetes
+
+Let's take a slight detour through deploying to Kubernetes.
+
+When a Kubernetes extension is present in the classpath, Quarkus will scaffold a Kubernetes deployment file in your 
+target/ folder during the package phase. We can apply it to deploy the application to our Kubernetes cluster:
+
+> [!NOTE]
+> You will need the kubectl or oc cli tool installed locally for the apply command below. Here are instructions to 
+> install the oc tool and log in to your OpenShift Sandbox. 
+> Hint: your favorite package manager (dnf/brew/choco) can likely be used for the installation. 
+> Eg. dnf install kubectl or choco install kubernetes-client or choco install openshift-client
+
+<tabs>
+    <tab title="kubectl">
+        <code-block lang="plain text">
+            kubectl apply -f target/kubernetes/kubernetes.yml
+        </code-block>
+    </tab>
+    <tab title="oc">
+        <code-block lang="plain text">
+            oc apply -f target/kubernetes/kubernetes.yml
+        </code-block>
+    </tab>
+</tabs>
+
+If using Minikube, you should be able to see the services and mappings to get the IP:PORT
+
+Run $ kubectl get services to see the port assignment.
+
+Then you should be able to run Postman and get something like the following when later running the web socket portion:
+
+![postman-websocket](../images/09-websocket.png)
 
