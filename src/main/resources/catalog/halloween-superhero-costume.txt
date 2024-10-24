@@ -33,5 +33,14 @@ Ensure that your costume allows for easy movement and is comfortable to wear for
 10. Enjoyment:
 Above all, have fun with your costume! Embrace the spirit of Halloween and enjoy the creative process.
 
+11. Costume Ownership Policy
+Each costume may be owned and added to a costume owner.  The costume will become unique if it has a unique id, ownerfirstname and ownerlastname.
+
+12. Costume Removal Policy
+A costume can only be removed from the list if the costume id, ownerfirstname and ownerlastname are provided.
+
+13. Costume Details Policy
+A costume details may be returned if the costume id, ownerfirstname and ownerlastname are provided.
+
 Conclusion
 Following these guidelines will help you create an exciting and appropriate superhero costume for Halloween. Remember to showcase your creativity and enjoy the festivities!

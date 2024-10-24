@@ -1,4 +1,4 @@
-package com.redhat.developers;
+package com.devcorner.developers;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

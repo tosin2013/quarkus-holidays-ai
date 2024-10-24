@@ -1,4 +1,4 @@
-package com.redhat.developers;
+package com.devcorner.developers;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
