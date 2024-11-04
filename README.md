@@ -71,6 +71,9 @@ process to recreate it as a demo or use it as a tutorial to build your own.  So,
 - [02 Working with Memory](./docs/02-working-with-memory.md)
 - [03 Working with Agents and Tools](./docs/03-working-with-agents-and-tools.md)
 - [04 Working with RAG](./docs/04-working-with-rag.md)
+- [05 Working with Advanced RAG](./docs/05-working-with-advanced-rag.md)
+- [06 Working with Images](./docs/06-working-with-images.md)
+- [07 Adding Guardrails](./docs/07-adding-some-guardrails.md)
 
 
 
