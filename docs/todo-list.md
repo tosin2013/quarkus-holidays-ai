@@ -32,15 +32,15 @@ curl https://api.openai.com/v1/images/generations \
 
 
 Flow
-Introduce the end result.  In other words, here it is all running in OpenShift on Azure or something.  Ask it some questions.  Pull back a Dall.E 3 image or two.
-Then let's jump into the code and explore how we built it up and what it all means when we add stuff.
-As we add each section, chat with Clement about what it is and what it does while someone is coding.
-Get back to the end result working on the developer machine.
-Briefly explain how we put it into OpenShift
-Leave behind step by step instructions so someone can do it themselves.
-We can clone the repo and put it on the developerscorner github
-(Optional) We might do something with the podman ai granite model.  I find it is rather big and slow on my machine.  It literally sucks up 4 - 5 gb download and then when running, i'm see it up to 20 - 23 gb on my 32 gb machine and swapping.  It gets very slow quickly.
-Additionally, it uses the openai api and you will not be able to configure both the openai and granite at the same time in properties - might ask Clement how that could be done other than two separate projects
+* Introduce the end result.  In other words, here it is all running in OpenShift on Azure or something.  Ask it some questions.  Pull back a Dall.E 3 image or two.
+* Then let's jump into the code and explore how we built it up and what it all means when we add stuff.
+* As we add each section, chat with Clement about what it is and what it does while someone is coding.
+* Get back to the end result working on the developer machine.
+* Briefly explain how we put it into OpenShift
+* Leave behind step by step instructions so someone can do it themselves.
+* We can clone the repo and put it on the developerscorner github
+* (Optional) We might do something with the podman ai granite model.  I find it is rather big and slow on my machine.  It literally sucks up 4 - 5 gb download and then when running, i'm see it up to 20 - 23 gb on my 32 gb machine and swapping.  It gets very slow quickly.
+* Additionally, it uses the openai api and you will not be able to configure both the openai and granite at the same time in properties - might ask Clement how that could be done other than two separate projects
 
 https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell
 

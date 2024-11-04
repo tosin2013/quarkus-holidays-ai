@@ -11,7 +11,7 @@ The output would then present the next action to take or a final response.
 
 Each action specifies a tool (method name) and its corresponding input parameters.
 
-Tools are emthods the agent can invoke.
+Tools are methods the agent can invoke.
 
 ## Add a Mailer
 
