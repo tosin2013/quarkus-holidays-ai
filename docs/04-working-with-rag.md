@@ -377,3 +377,32 @@ Create a chat assistant in **src/main/resources/META-INF/resources** called **ch
 
 We can invoke the endpoint by navigating in our browser to **http://localhost:8080/chat-assistant.html**.
 
+
+## Configuring Easy RAG
+
+Although we have already given a property for RAG to find out documents, _quarkus.langchain4j.easy-rag.path=src/main/resources/catalog_, 
+we can add several additional properties to the configuration.
+
+````Java
+quarkus.langchain4j.easy-rag.max-segment-size=100
+quarkus.langchain4j.easy-rag.max-overlap-size=25
+quarkus.langchain4j.easy-rag.max-results=3
+````
+
+What did this configuration do exactly?
+
+- _quarkus.langchain4j.easy-rag.max-segment-size_: The maximum number of tokens in a segment.  Each document is split into
+segments (chunks) which can be ingested by the LLM.  This parameter defines the maximum number of tokens in a segment.
+- _quarkus.langchain4j.easy-rag.max-overlap-size_: The maximum number of tokens to overlap between two segments.  Each segment overlaps
+with the previous one by this number of tokens.  This allows the LLM to have a context between two segments.
+- _quarkus.langchain4j.easy-rag.max-results_: The maximum number of results to return when querying the knowledge base.
+
+## Testing the RAG pattern
+
+Run the application in Dev mode and open the browser to localhost:8080.
+
+### Ingestion and Embedding
+
+When we start the application, we should see something like the following in the log:
+
+

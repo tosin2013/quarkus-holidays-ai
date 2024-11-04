@@ -64,7 +64,7 @@ compatible with the quarkus-resteasy extension, or any of the extensions that de
 
 ### Getting Started
 
-Although this project can be built and deployed, the following documentation will take you through a step-by-step 
+Although the intent of this project was to learn about using LangChain4j with Quarkus, this project can be built and deployed, the following documentation will take you through a step-by-step 
 process to recreate it as a demo or use it as a tutorial to build your own.  So, dig in and have fun.
 
 - [01 Getting Started](./docs/01-getting-started.md)
@@ -74,8 +74,6 @@ process to recreate it as a demo or use it as a tutorial to build your own.  So,
 - [05 Working with Advanced RAG](./docs/05-working-with-advanced-rag.md)
 - [06 Working with Images](./docs/06-working-with-images.md)
 - [07 Adding Guardrails](./docs/07-adding-some-guardrails.md)
-
-
 
 ## Credits
 
