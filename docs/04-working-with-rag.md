@@ -405,4 +405,33 @@ Run the application in Dev mode and open the browser to localhost:8080.
 
 When we start the application, we should see something like the following in the log:
 
+![Easy RAG Ingestion](../images/12-easy-rag-ingestion.png)
 
+That data from the catalog directory is being ingested. The files are read from the configured directory, split into segments, 
+and stored in the knowledge base. In our case, the knowledge base is in memory. We will see in the next steps how to use 
+a persistent knowledge base.
+
+The segments are not stored as-is in the knowledge base. They are transformed into vectors, also called embeddings. This 
+is a way to represent the text in a numerical form. So, in the knowledge base, we have the text and the corresponding 
+embeddings. These embeddings are computed using embedding models. Right now, we use the default embedding model provided 
+by OpenAI. We will see in the next steps how to use your own embedding model.
+
+### Reviewing this with the Quarkus Dev UI.
+
+Open the Quarkus DEV UI at localhost:8080/q/dev-ui and locate the LangChain4j tile.  Then click on the _Embedding Store_ link:
+
+![Embedding Store](../images/13-langchain4j-tile.png)
+
+Then look for the **Search for relevant embeddings** section.  Enter a query in the **Search text** field, for example, 
+**personal touch**, and then click on the **Search** button.
+
+![Easy RAG DEV UI](../images/14-easy-rag-dev-ui.png)
+
+You should see the segments _close_ to the searched text.  We can visualize the segments, but also their score, i.e., how 
+close they are to the searched text.
+
+To find relevant segments, it computes the embeddings of the searched text and then compares them to the embeddings of the
+segments.  It applies a similarity search using a distance computation (like the cosine similarity).  The closer the embeddings,
+the higher the score.
+
+Using the RAG pattern, the LLM can receive an extended prompt and can provide more accurate response information.
