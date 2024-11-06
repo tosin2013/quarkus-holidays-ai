@@ -285,7 +285,7 @@ and use the best one.
 
 Let's customize the content injected into the segments by editing the **create** method of the **RagRetriever**:
 
-```Java #30-38
+```Java highlight-manual="|"
 package com.devcorner.developers;
 
 import java.util.List;
@@ -315,7 +315,7 @@ public class RagRetriever {
 
         return DefaultRetrievalAugmentor.builder()
                 .contentRetriever(contentRetriever)
-.contentInjector(new ContentInjector() {
+|<mark><em><span class="custom-highlight">|.contentInjector(new ContentInjector() {
     @Override
     public UserMessage inject(List<Content> list, UserMessage userMessage) {
         StringBuffer prompt = new StringBuffer(userMessage.singleText());
@@ -323,7 +323,7 @@ public class RagRetriever {
         list.forEach(content -> prompt.append("- ").append(content.textSegment().text()).append("\n"));
         return new UserMessage(prompt.toString());
     }
-})
+})|</span></em></mark>|
                 .build();
     }
 }
