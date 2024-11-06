@@ -1,8 +1,3 @@
-pre {
-background-color: #eee;
-border-radius: 5px;
-}
-
 # Additional RAG Pattern
 
 In this section, we will learn about using the RAG pattern with our own customizations and embedding model.
@@ -320,8 +315,7 @@ public class RagRetriever {
 
         return DefaultRetrievalAugmentor.builder()
                 .contentRetriever(contentRetriever)
-
-<span style="background-color:blue">
+<b>
 .contentInjector(new ContentInjector() {
     @Override
     public UserMessage inject(List<Content> list, UserMessage userMessage) {
@@ -331,7 +325,7 @@ public class RagRetriever {
         return new UserMessage(prompt.toString());
     }
 })
-</span>
+</b>
 
                 .build();
     }
