@@ -75,6 +75,17 @@ process to recreate it as a demo or use it as a tutorial to build your own.  So,
 - [06 Working with Images](./docs/06-working-with-images.md)
 - [07 Adding Guardrails](./docs/07-adding-some-guardrails.md)
 
+What did we explore with this exercise?
+
+- We integrated an LLM into a Quarkus application
+- Worked with prompts, chains and memory and used annotations to pass prompts and structure interactions
+- Used functions to interact with the system components
+- Leveraged easy RAG and RAG using a vectorized database
+- Implemented guardrails to mitigate misbehaviors
+
+We basically touched on the tip of the iceberg regarding what Quarkus+Langchain4j could do.  To learn from a more comprehensive
+set of tutorials, please see the credits section below.
+
 ## Credits
 
 Much/most of this was taken and repurposed from these wonderful source/tutorial materials:
@@ -82,4 +93,7 @@ Much/most of this was taken and repurposed from these wonderful source/tutorial 
 - [Quarkus Tutorial](https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/index.html)
 - [Reactive Systems In Java](https://github.com/cescoffier/reactive-systems-in-java)
 - [Quarkus LangChain4j Workshop](https://github.com/cescoffier/quarkus-langchain4j-workshop)
+- [Devoxx Java Meets AI: Build LLM-Powered Apps with LangChain4j By Deandrea, Andrianakis, Escoffier](https://www.youtube.com/watch?v=jzuP6l54kWA)
+- [Quarkusio Quarkus Insights #163: Latest in Quarkus LangChain4j](https://www.youtube.com/watch?v=EeR_8HMFwN4)
+- [Adam Bien Java, LLMs, and Seamless AI Integration with langchain4j, Quarkus and MicroProfile](https://www.youtube.com/watch?v=jze1vH2rZ2U)
 
