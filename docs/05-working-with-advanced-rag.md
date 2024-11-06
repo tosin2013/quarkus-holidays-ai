@@ -315,7 +315,7 @@ public class RagRetriever {
 
         return DefaultRetrievalAugmentor.builder()
                 .contentRetriever(contentRetriever)
-<b>
+<span style="color: blue;" markdown="span">
 .contentInjector(new ContentInjector() {
     @Override
     public UserMessage inject(List<Content> list, UserMessage userMessage) {
@@ -325,7 +325,7 @@ public class RagRetriever {
         return new UserMessage(prompt.toString());
     }
 })
-</b>
+</span>
 
                 .build();
     }
