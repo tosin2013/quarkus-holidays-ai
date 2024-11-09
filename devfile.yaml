@@ -1,0 +1,65 @@
+schemaVersion: 2.2.2
+metadata:
+  name: dev-services
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      env:
+        - name: QUARKUS_HTTP_HOST
+          value: 0.0.0.0
+      endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
+        - exposure: public
+          name: greet-attendee
+          protocol: https
+          targetPort: 8080
+          path: /api/hello
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      mountSources: true
+  - name: m2
+    volume:
+      size: 1G
+commands:
+  - id: package
+    exec:
+      label: "1. Package the application"
+      component: tools
+      workingDir: ${PROJECTS_ROOT}/
+      commandLine: "mvn package"
+      group:
+        kind: build
+        isDefault: true
+  - id: livecoding
+    exec:
+      label: "2. Start Development mode"
+      component: tools
+      workingDir: ${PROJECTS_ROOT}/
+      commandLine: "mvn compile quarkus:dev"
+      group:
+        kind: run
+        isDefault: true
+  - id: install-clis
+    exec:
+      label: "3. Install Quarkus and Kustomize CLI"
+      component: tools
+      workingDir: /tmp
+      commandLine: |
+        echo "Installing Quarkus CLI..."
+        QUARKUS_VERSION=2.16.6.Final
+        curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-${QUARKUS_VERSION}-linux-amd64.tar.gz -o quarkus-cli.tar.gz
+        tar -xzf quarkus-cli.tar.gz
+        sudo mv quarkus /usr/local/bin/
+        rm quarkus-cli.tar.gz
+        echo "Quarkus CLI installed successfully."
+
+        echo "Installing Kustomize CLI..."
+        KUSTOMIZE_VERSION=v5.0.3
+        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+        sudo mv kustomize /usr/local/bin/
+        echo "Kustomize CLI installed successfully."
