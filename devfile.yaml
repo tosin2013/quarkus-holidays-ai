@@ -51,8 +51,8 @@ commands:
       workingDir: /tmp
       commandLine: |
         echo "Installing Quarkus CLI..."
-        QUARKUS_VERSION=2.16.6.Final
-        curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-${QUARKUS_VERSION}-linux-amd64.tar.gz -o quarkus-cli.tar.gz
+        QUARKUS_VERSION=3.16.2
+        curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
         tar -xzf quarkus-cli.tar.gz
         sudo mv quarkus /usr/local/bin/
         rm quarkus-cli.tar.gz
