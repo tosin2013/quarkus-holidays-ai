@@ -52,7 +52,7 @@ commands:
       commandLine: |
         echo "Installing Quarkus CLI..."
         QUARKUS_VERSION=3.16.2
-        #curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
+        curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
         tar -xzf quarkus-cli.tar.gz
         sudo cp -avi ${PROJECTS_ROOT}/quarkus-cli-${QUARKUS_VERSION}/bin/ /usr/local/bin/
         #rm quarkus-cli.tar.gz
