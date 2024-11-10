@@ -51,18 +51,12 @@ commands:
       workingDir: /tmp/
       commandLine: |
         echo "Installing Quarkus CLI..."
+        # https://github.com/quarkusio/quarkus/releases
         QUARKUS_VERSION=3.16.2
-        cd  ${PROJECTS_ROOT}
-        mkdir -p ./bin 
-        curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
-        tar -xzf quarkus-cli.tar.gz
-        # Copy each executable in the Quarkus bin directory to ./bin
-        sudo cp -avi quarkus-cli-${QUARKUS_VERSION}/bin/quarkus  ./bin
-        # Ensure the executable has the correct permissions
-        sudo chmod +x  ./bin/quarkus
-        # Uncomment the following lines to clean up installation files
-        # rm quarkus-cli.tar.gz
-        # rm -rf quarkus-cli-${QUARKUS_VERSION}
+        cd  /projects/quarkus-holidays-ai
+        curl -s "https://get.sdkman.io" | bash
+        #source "$HOME/.sdkman/bin/sdkman-init.sh"
+        sdk install quarkus 3.16.2
         echo "Quarkus CLI installed successfully."
 
         echo "Installing Kustomize CLI..."
@@ -72,3 +66,6 @@ commands:
         # Ensure the executable has the correct permissions
         sudo chmod +x /usr/local/bin/kustomize
         echo "Kustomize CLI installed successfully."
+events:
+  postStart:
+   - install-clis
