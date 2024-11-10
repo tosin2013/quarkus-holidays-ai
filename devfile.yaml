@@ -48,19 +48,27 @@ commands:
     exec:
       label: "3. Install Quarkus and Kustomize CLI"
       component: tools
-      workingDir: ${PROJECTS_ROOT}/
+      workingDir: /tmp/
       commandLine: |
         echo "Installing Quarkus CLI..."
         QUARKUS_VERSION=3.16.2
+        cd  ${PROJECTS_ROOT}
+        mkdir -p ./bin 
         curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
         tar -xzf quarkus-cli.tar.gz
-        sudo cp -avi ${PROJECTS_ROOT}/quarkus-cli-${QUARKUS_VERSION}/bin/ /usr/local/bin/
-        #rm quarkus-cli.tar.gz
-        #rm -rf quarkus-cli-${QUARKUS_VERSION}
+        # Copy each executable in the Quarkus bin directory to ./bin
+        sudo cp -avi quarkus-cli-${QUARKUS_VERSION}/bin/quarkus  ./bin
+        # Ensure the executable has the correct permissions
+        sudo chmod +x  ./bin/quarkus
+        # Uncomment the following lines to clean up installation files
+        # rm quarkus-cli.tar.gz
+        # rm -rf quarkus-cli-${QUARKUS_VERSION}
         echo "Quarkus CLI installed successfully."
 
         echo "Installing Kustomize CLI..."
         KUSTOMIZE_VERSION=v5.0.3
         curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
         sudo mv kustomize /usr/local/bin/
+        # Ensure the executable has the correct permissions
+        sudo chmod +x /usr/local/bin/kustomize
         echo "Kustomize CLI installed successfully."
