@@ -48,13 +48,13 @@ commands:
     exec:
       label: "3. Install Quarkus and Kustomize CLI"
       component: tools
-      workingDir: /tmp
+      workingDir: ${PROJECTS_ROOT}/
       commandLine: |
         echo "Installing Quarkus CLI..."
         QUARKUS_VERSION=3.16.2
-        curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
+        #curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
         tar -xzf quarkus-cli.tar.gz
-        sudo ln -s  /projects/quarkus-holidays-ai/quarkus-cli-${QUARKUS_VERSION}/bin/quarkus /usr/local/bin/
+        sudo cp -avi ${PROJECTS_ROOT}/quarkus-cli-${QUARKUS_VERSION}/bin/ /usr/local/bin/
         #rm quarkus-cli.tar.gz
         #rm -rf quarkus-cli-${QUARKUS_VERSION}
         echo "Quarkus CLI installed successfully."
