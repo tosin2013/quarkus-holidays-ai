@@ -57,6 +57,7 @@ commands:
         curl -s "https://get.sdkman.io" | bash
         #source "$HOME/.sdkman/bin/sdkman-init.sh"
         sdk install quarkus 3.16.2
+        sdk use java 21.0.2-tem
         echo "Quarkus CLI installed successfully."
 
         echo "Installing Kustomize CLI..."

@@ -1,8 +1,13 @@
 # Deploying on OpenShift
 
+## Prerequisites
+* Running OpenShift 4.x Cluster
+*  Login to the OpenShift Cluster from the terminal
+```
 oc login --token=sha256~xxxx --server=https://api.ocp4.example.com:6443
+```
 
-# Manual Deployment
+## Manual Deployment
 
 **1. Install OpenShift Devspaces Operator**
 ```
