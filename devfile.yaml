@@ -54,9 +54,9 @@ commands:
         QUARKUS_VERSION=3.16.2
         curl -L https://github.com/quarkusio/quarkus/releases/download/${QUARKUS_VERSION}/quarkus-cli-${QUARKUS_VERSION}.tar.gz -o quarkus-cli.tar.gz
         tar -xzf quarkus-cli.tar.gz
-        sudo mv quarkus-cli-${QUARKUS_VERSION}/bin/quarkus /usr/local/bin/
-        rm quarkus-cli.tar.gz
-        rm -rf quarkus-cli-${QUARKUS_VERSION}
+        sudo ln -s  /projects/quarkus-holidays-ai/quarkus-cli-${QUARKUS_VERSION}/bin/quarkus /usr/local/bin/
+        #rm quarkus-cli.tar.gz
+        #rm -rf quarkus-cli-${QUARKUS_VERSION}
         echo "Quarkus CLI installed successfully."
 
         echo "Installing Kustomize CLI..."
