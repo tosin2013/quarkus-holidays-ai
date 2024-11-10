@@ -18,6 +18,12 @@ Tools used to create this project:
 - (Optional) zsh for the terminal is visually helpful if giving a demo from this
 
 
+# Install Quarkus CLI - On OpenShift CodeReady Workspaces
+```
+sdk install java 21.0.0.r11-grl
+sdk use java 21.0.2-tem
+```
+
 ````Bash
 quarkus create app -x rest -x langchain4j-openai -x langchain4j-core com.devcorner.developers:quarkus-halloween-ai:1.0-SNAPSHOT
 cd quarkus-halloween-ai
