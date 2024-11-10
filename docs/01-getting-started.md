@@ -22,6 +22,7 @@ Tools used to create this project:
 ```
 sdk install java 21.0.0.r11-grl
 sdk use java 21.0.2-tem
+sdk install quarkus 3.16.2
 ```
 
 ````Bash
