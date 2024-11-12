@@ -1,0 +1,54 @@
+name: Build and Push Docker Container
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Get artifactId from pom.xml
+        id: get_artifactId
+        run: echo "::set-output name=artifactId::$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)"
+
+      - name: Expose artifactId as an output
+        run: echo "POM_ARTIFACT=${{ steps.get_artifactId.outputs.artifactId }}" >> $GITHUB_ENV
+
+      - name: Print artifactId
+        run: echo $POM_ARTIFACT
+
+      - name: Get version from pom.xml
+        id: get_version
+        run: echo "::set-output name=version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+
+      - name: Expose version as an output
+        run: echo "POM_VERSION=${{ steps.get_version.outputs.version }}" >> $GITHUB_ENV
+
+      - name: Print version
+        run: echo $POM_VERSION
+
+      - name: Build with Maven
+        run: mvn clean package --file pom.xml -DskipTests
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        run: docker build --file src/main/docker/Dockerfile.jvm -t ${{ secrets.DOCKERHUB_USERNAME }}/${POM_ARTIFACT}:${POM_VERSION} -t ${{ secrets.DOCKERHUB_USERNAME }}/${POM_ARTIFACT}:latest .
+
+      - name: Push Docker image
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${POM_ARTIFACT}:${POM_VERSION}
