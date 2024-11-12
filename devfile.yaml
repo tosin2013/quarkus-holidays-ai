@@ -16,47 +16,50 @@ projects:
 components:
   - name: tools
     container:
-      image: openjdk:21
-      memoryLimit: 2Gi
-      cpuLimit: '1000m'  # Corrected to string with unit
-      cpuRequest: '500m' # Added cpuRequest as a string with unit
+      image: registry.access.redhat.com/ubi8/openjdk-21:1.20-3.1721207868
+      args: ['tail', '-f', '/dev/null']
+      memoryLimit: 1024Mi ## default app nowhere needs this but leaving room for expansion.
       mountSources: true
-      command: ['/bin/sh']
-      args: ['-c', 'while sleep 1000; do :; done']
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      endpoints:
+        - name: https-quarkus
+          targetPort: 8080
+          protocol: https
+        - exposure: none
+          name: debug
+          targetPort: 5858
       env:
-        - name: MAVEN_OPTS
-          value: '-Dmaven.repo.local=/home/user/.m2/repository'
+        - name: DEBUG_PORT
+          value: '5858'
+  - name: m2
+    volume:
+      size: 3Gi
 commands:
-  - id: install-clis
-    exec:
-      label: 'Install Quarkus and Kustomize CLI'
-      component: tools
-      workingDir: /projects/quarkus-holidays-ai
-      commandLine: |
-        echo "Installing SDKMAN..."
-        curl -s "https://get.sdkman.io" | bash
-        source "$HOME/.sdkman/bin/sdkman-init.sh"
-        echo "Installing Quarkus CLI..."
-        sdk install quarkus 3.16.2
-        echo "Quarkus CLI installed successfully."
-        echo "Installing Kustomize CLI..."
-        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-        mv kustomize /usr/local/bin/
-        chmod +x /usr/local/bin/kustomize
-        echo "Kustomize CLI installed successfully."
-  - id: build
+  - id: init-compile
     exec:
       component: tools
-      commandLine: 'mvn clean install'
-      workingDir: /projects/quarkus-holidays-ai
-      group:
-        kind: build
-        isDefault: true
-  - id: run
+      commandLine: './mvnw -Dmaven.repo.local=/home/user/.m2/repository compile'
+      workingDir: ${PROJECT_SOURCE}
+  - id: dev-run
     exec:
       component: tools
-      commandLine: 'java -jar target/quarkus-holidays-ai-1.0.0-SNAPSHOT-runner.jar'
-      workingDir: /projects/quarkus-holidays-ai
+      commandLine: './mvnw -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0'
+      hotReloadCapable: true
       group:
         kind: run
         isDefault: true
+      workingDir: ${PROJECT_SOURCE}
+  - id: dev-debug
+    exec:
+      component: tools
+      commandLine: './mvnw -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0 -Ddebug=${DEBUG_PORT}'
+      hotReloadCapable: true
+      group:
+        kind: debug
+        isDefault: true
+      workingDir: ${PROJECT_SOURCE}
+events:
+  postStart:
+    - init-compile
