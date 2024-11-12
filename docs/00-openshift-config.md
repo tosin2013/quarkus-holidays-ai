@@ -28,9 +28,3 @@ oc apply -k   cluster-config/devspaces/instance/overlays/default
 ![20241109180307](https://i.imgur.com/YDG5g9j.png)
 **You can now access the workspace**
 ![20241109180709](https://i.imgur.com/6KKhJL2.png)
-**Open the terminal and run the below commands**
-```
-sdk install quarkus 3.16.2
-sdk install java 21.0.0.r11-grl
-sdk use java 21.0.2-tem
-```
