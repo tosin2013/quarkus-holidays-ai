@@ -1,49 +1,40 @@
 schemaVersion: 2.2.2
 metadata:
-  name: dev-services
+  name: quarkus-java21
+projects:
+  - name: quarkus-holidays-ai
+    git:
+      remotes:
+        origin: 'https://github.com/tosin2013/quarkus-holidays-ai.git'
 components:
   - name: tools
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-latest
-      env:
-        - name: QUARKUS_HTTP_HOST
-          value: 0.0.0.0
-      endpoints:
-        - exposure: none
-          name: debug
-          protocol: tcp
-          targetPort: 5005
-        - exposure: public
-          name: greet-attendee
-          protocol: https
-          targetPort: 8080
-          path: /api/hello
-      volumeMounts:
-        - name: m2
-          path: /home/user/.m2
+      image: 'registry.access.redhat.com/ubi8/openjdk-21:latest' # Ensure this image supports Java 21
+      memoryLimit: 1Gi
       mountSources: true
-  - name: m2
-    volume:
-      size: 1G
+      endpoints:
+        - name: quarkus
+          targetPort: 8080
+      env:
+        - name: JAVA_OPTS
+          value: '-XX:MaxRAMPercentage=50.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4'
+        - name: MAVEN_OPTS
+          value: $(JAVA_OPTS)
+  - name: quarkus
+    container:
+      image: 'quay.io/quarkus/ubi-quarkus-native-binary-s2i:21'
+      memoryLimit: 1Gi
 commands:
-  - id: package
+  - id: build
     exec:
-      label: "1. Package the application"
       component: tools
-      workingDir: ${PROJECTS_ROOT}/
-      commandLine: "mvn package"
-      group:
-        kind: build
-        isDefault: true
-  - id: livecoding
+      commandLine: "mvn clean package"
+      workingDir: "/projects/quarkus-holidays-ai"
+  - id: run
     exec:
-      label: "2. Start Development mode"
       component: tools
-      workingDir: ${PROJECTS_ROOT}/
-      commandLine: "mvn compile quarkus:dev"
-      group:
-        kind: run
-        isDefault: true
+      commandLine: "mvn quarkus:dev"
+      workingDir: "/projects/quarkus-holidays-ai"
   - id: install-clis
     exec:
       label: "3. Install Quarkus and Kustomize CLI"
@@ -51,22 +42,24 @@ commands:
       workingDir: /tmp/
       commandLine: |
         echo "Installing Quarkus CLI..."
-        # https://github.com/quarkusio/quarkus/releases
         QUARKUS_VERSION=3.16.2
-        cd  /projects/quarkus-holidays-ai
+        cd /projects/quarkus-holidays-ai
         curl -s "https://get.sdkman.io" | bash
-        #source "$HOME/.sdkman/bin/sdkman-init.sh"
+        source "$HOME/.sdkman/bin/sdkman-init.sh"
         sdk install quarkus 3.16.2
-        sdk use java 21.0.2-tem
+        #sdk use java 21.0.2-tem
         echo "Quarkus CLI installed successfully."
-
+        
         echo "Installing Kustomize CLI..."
         KUSTOMIZE_VERSION=v5.0.3
         curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
         sudo mv kustomize /usr/local/bin/
-        # Ensure the executable has the correct permissions
         sudo chmod +x /usr/local/bin/kustomize
         echo "Kustomize CLI installed successfully."
+  - id: setup-environment
+    apply:
+      component: tools
 events:
   postStart:
-   - install-clis
+    - build
+    - run
